@@ -23,7 +23,7 @@ function ItemCount({stock, initial, onAdd}) {
 return (
     <div>
         <button onClick={resta} disabled={count === initial ? true : null}>-</button>
-        <span>{count}</span>
+        <span className="text-dark" >{count}</span>
         <button onClick={suma} disabled={count === stock ? true : null}>+</button>
         <br/>
         <br/>
