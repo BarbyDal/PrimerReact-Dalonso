@@ -2,7 +2,8 @@ import LogoImg from './img/alonsilogo.JPG';
 import './App.css';
 import NavBar from './components/NavBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ITemListContainer from './components/ITemListContainer';
+/*import ITemListContainer from './components/ITemListContainer'; */
+import ItemDetailContainer from './components/ItemDetailContainer'; 
 
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
        <img alt="logo marca" src={ LogoImg } />
        <h2>Alonsi e-commerce de ropa</h2>
         <span/>
-       <ITemListContainer greeting="Productos"/>
+       {/*<ITemListContainer greeting="Productos"> */}
+       <ItemDetailContainer greeting="Detalle"/>
        
 
       </header>
