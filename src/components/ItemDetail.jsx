@@ -1,5 +1,6 @@
 import React from "react";
 import './ItemDetail.css'
+import ItemCount from "./ItemCount";
 
 function ItemDetail({ item })  {
     return (   
@@ -9,6 +10,7 @@ function ItemDetail({ item })  {
     <h3>{item.name}</h3>
     <p className="desc" >{item.descripcion}</p>
     <p > ${item.price}</p>
+    <ItemCount stock={item.stock} initial={1} />
 </div>   
    
     );
