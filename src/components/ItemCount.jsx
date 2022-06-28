@@ -27,7 +27,7 @@ return (
         <button onClick={suma} disabled={count === stock ? true : null}>+</button>
         <br/>
         <br/>
-        <button>Agregar al carrito</button>
+        <button onClick={()=>onAdd(count)}>Agregar al carrito</button>
     </div>
     )
 }

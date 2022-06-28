@@ -1,8 +1,18 @@
 import React from "react";
 import './ItemDetail.css'
 import ItemCount from "./ItemCount";
+import { useState } from 'react'
+import { Link } from 'react-router-dom';
 
 function ItemDetail({ item })  {
+    
+    const [ cant, setAddedToCart] = useState(0);
+
+    function handleOnAdd(cantidad){
+                  
+          setAddedToCart(cantidad);
+    }
+
     return (   
     <div>
 
@@ -10,7 +20,13 @@ function ItemDetail({ item })  {
     <h3>{item.name}</h3>
     <p className="desc" >{item.descripcion}</p>
     <p > ${item.price}</p>
-    <ItemCount stock={item.stock} initial={1} />
+    {cant === 0 ? (
+                    <ItemCount stock={item.stock} initial={1} onAdd={handleOnAdd} />
+                ) : (
+                    <Link to="/cart">Ir al carrito</Link>
+                )}
+     
+
 </div>   
    
     );
