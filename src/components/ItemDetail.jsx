@@ -3,15 +3,23 @@ import './ItemDetail.css'
 import ItemCount from "./ItemCount";
 import { useState } from 'react'
 import { Link } from 'react-router-dom';
+import { CartContext } from '../context/CartContext';
+import { useContext } from 'react';
 
 function ItemDetail({ item })  {
     
-    const [ cant, setAddedToCart] = useState(0);
-
+    const [ cant, setAddedToCart] = useState(0);   
+    const { addItem, removeItem } = useContext(CartContext);
+  
     function handleOnAdd(cantidad){
                   
           setAddedToCart(cantidad);
+          addItem(item, cantidad);
     }
+
+    function handleOnRemove(){
+        removeItem(item);
+  }
 
     return (   
     <div>
@@ -24,9 +32,11 @@ function ItemDetail({ item })  {
                     <ItemCount stock={item.stock} initial={1} onAdd={handleOnAdd} />
                 ) : (
                     <Link to="/cart">Ir al carrito</Link>
-                )}
-     
-
+                )
+                
+                }
+    <br/><br/>
+   <button onClick={handleOnRemove}>Eliminar del carrito</button>
 </div>   
    
     );
