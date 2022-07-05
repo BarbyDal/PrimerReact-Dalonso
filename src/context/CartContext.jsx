@@ -17,13 +17,33 @@ export const CartProvider= ({children}) =>{
     const addItem = (item, cantidad) => {
 
         if (isInCart(item.id)) {
-            //sumar cantidad
-            console.log('ya esta en el carrito, agrega la cantidad');
+            const idToAdd= item.id;
+            let itemToAdd= cart.find(cadaItem=>cadaItem.id===idToAdd);
+            itemToAdd.cantidad += cantidad;
+            let newCart = cart.filter(p => p.id !== item.id );
+
+            setCart([...newCart, { ...itemToAdd}]);
+            
         } else {
             setCart([...cart, { ...item, cantidad }]);
         }
 
     };
+
+    //funcion para devolver cantidad de items
+
+    function cantInCart(){
+        let total=0;
+        cart.forEach( item=> total= total + item.cantidad);
+        return total;
+    }
+
+    //funcion para calcular el precio total de lo consumido en el carrito
+    function totalPriceCart(){
+        let total=0;
+        cart.forEach( (item)=> (total= total + (item.cantidad * item.price)));
+        return total;
+    }
 
     //función para verificar si el producto ya está en el carrito
     const isInCart = (id) => {
@@ -36,18 +56,17 @@ export const CartProvider= ({children}) =>{
         setCart([]);
     };
 
+
     //Remove item usando su id
-    const removeItem = (item) => {
-        cartCopy = cart.filter(p => p.id !== item.id )
+    const removeItem = (id) => {
+        cartCopy = cart.filter(p => p.id !== id )
         setCart(cartCopy);
 
-        //se deja el console.log para probar los datos
-        console.log('producto eliminado:', item.name);
     }; 
 
     return(       
        
-        <CartContext.Provider  value={{cart, prueba, addItem, clearCart, removeItem}}>        
+        <CartContext.Provider  value={{cart, prueba, addItem, cantInCart, totalPriceCart, clearCart, removeItem}}>        
         {children}
         </CartContext.Provider>
       

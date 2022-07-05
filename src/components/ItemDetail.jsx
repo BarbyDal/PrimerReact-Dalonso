@@ -9,7 +9,7 @@ import { useContext } from 'react';
 function ItemDetail({ item })  {
     
     const [ cant, setAddedToCart] = useState(0);   
-    const { addItem, removeItem } = useContext(CartContext);
+    const { addItem } = useContext(CartContext);
   
     function handleOnAdd(cantidad){
                   
@@ -17,9 +17,7 @@ function ItemDetail({ item })  {
           addItem(item, cantidad);
     }
 
-    function handleOnRemove(){
-        removeItem(item);
-  }
+
 
     return (   
     <div>
@@ -36,7 +34,7 @@ function ItemDetail({ item })  {
                 
                 }
     <br/><br/>
-   <button onClick={handleOnRemove}>Eliminar del carrito</button>
+ 
 </div>   
    
     );
