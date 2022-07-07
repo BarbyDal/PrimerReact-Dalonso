@@ -7,11 +7,12 @@ import ItemListContainer from './components/ItemListContainer';
 import ItemDetailContainer from './components/ItemDetailContainer'; 
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import CartPage from './components/CartPage'
-
 import { CartProvider } from './context/CartContext';
+import appFirebase from './services/firestore';
 
 function App() {
 
+  console.log(appFirebase);
   return (
     <div className="App">
     <CartProvider>
@@ -23,11 +24,11 @@ function App() {
               <ItemListContainer greeting="Catalogo Productos" />
             }
             />
-            <Route path="/category/:id" element={
+            <Route path="/category/:categoryId" element={
               <ItemListContainer greeting="Categoria de items" />
             }
             />
-            <Route path="/item/:id" element={
+            <Route path="/item/:itemId" element={
               <ItemDetailContainer greeting="Detalle producto"/> 
             }/>
             <Route path="/cart"element={< CartPage/>} 

@@ -1,17 +1,27 @@
 
 import React, {useState, useEffect} from 'react'
-import {productos} from '../mock/products';
 import ItemList from './ItemList';
 import {useParams} from 'react-router-dom'
+import {traerProductos} from '../services/firestore'
 
 function ItemListContainer(props) {
 
-  const [products, setProduct]= useState([]);
-const {id}= useParams();
+const [products, setProduct]= useState([]);
+const {categoryId}= useParams();
+
+//let items= getItems();
+//console.log(items);
 
   useEffect( ()=> {
-
-    const traerProductos= new Promise ((res, rej)=>{
+  traerProductos(categoryId)
+  .then((res)=> {
+    setProduct(res);
+  })
+  .catch((error)=>{
+ console.log(error);
+  },[categoryId]);
+});
+        /*      const traerProductos= new Promise ((res, rej)=>{
         setTimeout(()=> {
     
           if (id=== undefined) {
@@ -34,9 +44,11 @@ const {id}= useParams();
     .then((res)=>{
       //console.log(res);
      setProduct(res);
-    })
+    })   
 
-  },[id]);
+
+
+  },[]); */
 
 //console.log(products);
 
