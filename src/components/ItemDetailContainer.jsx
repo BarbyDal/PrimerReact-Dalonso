@@ -42,8 +42,8 @@ const {itemId}= useParams();
    <div className="container">     
       <p>{props.greeting}</p>  
       <ItemDetail item={product}/>
-     
    </div>
+   
   )
 }
 

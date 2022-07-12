@@ -1,6 +1,6 @@
 
 import { initializeApp } from "firebase/app";
-import { getFirestore, where, query, getDocs, getDoc, doc, collection } from  "firebase/firestore";
+import { getFirestore, where, query, getDocs, getDoc, doc, addDoc, Timestamp, collection } from  "firebase/firestore";
 
 
 
@@ -54,4 +54,21 @@ export async function traerUnProducto(itemId){
   return  {id: docSnapshot.id, ...docSnapshot.data()};
 }
 
+
+export async function createBuyOrder(dataOrder)
+{
+  const orderCollectionRef= collection(appFirestore, "orders");
+  const dateTimestamp= Timestamp.now();
+
+  const dataOrderWithDate= {
+    buyer: dataOrder.buyer,
+    items: dataOrder.items,
+    total: dataOrder.total,
+    date: dateTimestamp
+  }
+
+  const orderCreated= await addDoc(orderCollectionRef, dataOrderWithDate);
+  //console.log("added:", orderCreated.id);
+  return orderCreated;
+}
 export default appFirestore;
