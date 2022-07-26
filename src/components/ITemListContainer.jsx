@@ -3,62 +3,42 @@ import React, {useState, useEffect} from 'react'
 import ItemList from './ItemList';
 import {useParams} from 'react-router-dom'
 import {traerProductos} from '../services/firestore'
+import RotateLoader from 'react-spinners/RotateLoader';
 
 function ItemListContainer(props) {
 
 const [products, setProduct]= useState([]);
 const {categoryId}= useParams();
+const [isLoading, setIsLoading] = useState(true);
 
-//let items= getItems();
-//console.log(items);
 
   useEffect( ()=> {
-  traerProductos(categoryId)
-  .then((res)=> {
-    setProduct(res);
-  })
-  .catch((error)=>{
- console.log(error);
-  },[categoryId]);
-});
-        /*      const traerProductos= new Promise ((res, rej)=>{
-        setTimeout(()=> {
-    
-          if (id=== undefined) {
-            res(productos);
-          }             
-          
-          else{
-
-            const itemsFound= productos.filter( p=>
-              {
-                return p.category=== id
-              } )
-  
-            res(itemsFound);
-          }
-        },2000);      
+    traerProductos(categoryId)
+    .then((res)=> {
+      setProduct(res);
     })
-   setTimeout(()=>{console.log(traerProductos)},2001);
-    traerProductos
-    .then((res)=>{
-      //console.log(res);
-     setProduct(res);
-    })   
+    .finally(() => {
+      setIsLoading(false);
+    });
+  },[categoryId]);
 
+  if(isLoading){
+    return (
+    <div className="mx-auto container h-96 flex justify-around">
+      <div className="flex-1 flex justify-center items-center">
+      <RotateLoader className="mx-auto align-middle" color={"rgb(000, 000, 000)"} size={20} />
+      </div>
+    </div>
+    )
+  }
 
+  return (
+      <div className="container">     
+         <p>{props.greeting}</p>  
+         <ItemList items={products} />        
+      </div>
+     )
 
-  },[]); */
-
-//console.log(products);
-
- return (
-   <div className="container">     
-      <p>{props.greeting}</p>  
-      <ItemList items={products} />
-     
-   </div>
-  )
 }
 
 

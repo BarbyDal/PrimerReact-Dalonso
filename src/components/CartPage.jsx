@@ -2,27 +2,15 @@ import React from 'react';
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext';
 import { Link } from 'react-router-dom';
-import {createBuyOrder} from '../services/firestore';
+import Button from 'react-bootstrap/Button';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const CartPage = () => {
 
     const { cart, clearCart, totalPriceCart, removeItem } = useContext(CartContext);
 
-    function  handleBuyOrder() {
-        const dataOrder= {
-            buyer:{
-                name:"Usuario Prueba",
-                phone: 123123123,
-                email:"UsuarioPrueba@gmal.com"
-            },
-            items: cart,
-            total: totalPriceCart() }
-        createBuyOrder(dataOrder).then( (orderDataCreated)=>{
-            clearCart();
-            console.log("orden:", orderDataCreated.id);
-        });       
-    }
- 
     return (   
 
     <div>
@@ -32,7 +20,7 @@ const CartPage = () => {
                     <p>
                         No hay productos en el carrito, para comprar agregue productos
                     </p>
-                    <Link to={"/"} ><button >Inicio</button></Link>
+                    <Link to={"/"} ><button className="btn btn-secondary mb-2">Inicio</button></Link>
                 </div>
             </div>
                 ) : (
@@ -43,24 +31,56 @@ const CartPage = () => {
 
      { cart.map((item) => {
                              return (
-                                 <div className="card cardList"  style={{width: '18rem'}}  key={item.id}> <img src={item.image} />
+                                <Row key={item.id}>
+                                    <Col>
+                                    <div className="card cardList"  style={{width: '8rem'}}>
+                                         <img src={item.image} alt=""/>
+                                    </div>
+                                    </Col>
+                                    <Col>
                                      <p>Producto: {item.name}</p>
+                                    </Col>
+                                    <Col>
                                      <p>Precio: $ {item.price}</p>
+                                     </Col>
+                                     <Col>
                                      <p>Cantidad: {item.cantidad}</p>
+                                     </Col>
+                                     <Col>
                                      <p>Subtotal: ${item.price* item.cantidad}</p>
-                                     <button onClick={()=>removeItem(item.id)}>Eliminar del carrito</button>
-                                 </div>)
+                                     </Col>
+                                     <Col>
+                                     <Button variant="secondary" onClick={()=>removeItem(item.id)}>
+                                        Eliminar del carrito
+                                     </Button>
+                                     </Col>
+                                 </Row>
+                                 )
 
                          })}
 
      <div className="card cardList">
                              <h4>TOTAL: $ {totalPriceCart()}</h4>
-                             <button onClick={ handleBuyOrder} >FINALIZAR COMPRA</button>
-                             <button onClick={clearCart}>Vaciar del carrito</button>
+                             <Container fluid>
+                            
+                             <Row>
+                                <Col md={{ span: 4, offset: 4 }}>
+
+                                    <Button variant="outline-secondary"  className="me-2" onClick={clearCart}>
+                                        Vaciar el carrito
+                                    </Button>                                        
+                                    <Link to={"/cartForm"}>
+                                        <Button className="botonCheckout" variant="secondary">Checkout</Button>
+                                    </Link>
+                                                                   
+                                </Col>
+                             </Row>
+                             
+                             </Container>
+      
       </div>
  </div>  
-                    </div>
-                )}
+     </div> )}
     
   
     </div>

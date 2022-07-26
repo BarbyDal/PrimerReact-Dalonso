@@ -13,17 +13,15 @@ const firebaseConfig = {
   appId: "1:891417862581:web:d607d2564a66a57796f9fc"
 };
 
-// Initialize Firebase
+
 const appFirebase = initializeApp(firebaseConfig);
 const appFirestore= getFirestore(appFirebase);
 
-export function testDatabse(){
-    console.log(appFirestore)
-}
+
 
 export async function traerProductos(categoryId){
     const itemsCollection= collection(appFirestore, "productos");
-    
+   
     let productosSnapshot = []
 
     if(categoryId){
@@ -49,8 +47,7 @@ export async function traerUnProducto(itemId){
 
   const docref= doc(appFirestore, "productos", itemId);
 
-  const docSnapshot= await getDoc(docref);
-
+  const docSnapshot= await getDoc(docref);  
   return  {id: docSnapshot.id, ...docSnapshot.data()};
 }
 
@@ -68,7 +65,6 @@ export async function createBuyOrder(dataOrder)
   }
 
   const orderCreated= await addDoc(orderCollectionRef, dataOrderWithDate);
-  //console.log("added:", orderCreated.id);
   return orderCreated;
 }
 export default appFirestore;

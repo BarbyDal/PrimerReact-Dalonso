@@ -8,15 +8,17 @@ import ItemDetailContainer from './components/ItemDetailContainer';
 import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import CartPage from './components/CartPage'
 import { CartProvider } from './context/CartContext';
-import appFirebase from './services/firestore';
+import Error404 from './components/Error404';
+import CartForm from './components/CartForm';
 
 function App() {
 
-  console.log(appFirebase);
+  
   return (
-    <div className="App">
+   
     <CartProvider>
       <BrowserRouter> 
+      <div className="App">
           <NavBar/>
           <Routes>
           
@@ -33,18 +35,18 @@ function App() {
             }/>
             <Route path="/cart"element={< CartPage/>} 
             />
+            <Route path="/cartForm" element={<CartForm/>}/>
+            
+            <Route path="*" element={< Error404/>} />
           </Routes> 
-        </BrowserRouter> 
-    </CartProvider>    
-      <header className="App-header">           
+          <footer className="App-header">           
             <img alt="logo marca" src={ LogoImg } />
             <h2>Alonsi e-commerce de ropa</h2>
-            <span/>  
-    
-      </header>
-
-
-    </div>
+             
+          </footer>
+          </div>
+        </BrowserRouter> 
+    </CartProvider>    
   );
 }
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import  './Item.css'
 import {Link} from 'react-router-dom'
-
+import Button from 'react-bootstrap/Button';
 
 const Item = ({ item }) => {
     const urlDetalle = `/item/${item.id}`
@@ -16,7 +16,7 @@ const Item = ({ item }) => {
    
             </div>
         <Link to={urlDetalle}>
-            <button>Ver Detalle</button>
+            <Button variant="secondary">Ver Detalle</Button>
         </Link>
     </div>
     );

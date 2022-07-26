@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { CartContext } from '../context/CartContext';
 import { useContext } from 'react';
+import Button from 'react-bootstrap/Button';
 
 function ItemDetail({ item })  {
     
@@ -29,7 +30,9 @@ function ItemDetail({ item })  {
     {cant === 0 ? (
                     <ItemCount stock={item.stock} initial={1} onAdd={handleOnAdd} />
                 ) : (
-                    <Link to="/cart">Ir al carrito</Link>
+                    <Link to="/cart">
+                        <Button variant="outline-dark">Ir al carrito</Button>
+                    </Link>
                 )
                 
                 }

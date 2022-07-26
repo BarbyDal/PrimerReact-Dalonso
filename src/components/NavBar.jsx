@@ -1,28 +1,29 @@
 import React from 'react';
 import CartWidget from  './CartWidget';
-import {Link} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 export default function NavBar(){
 
     return (
-<nav className="navbar navbar-expand navbar-light ">
-	
-    <ul className="navbar-nav mr-auto">
-			<li className="nav-item  ml-3"> 			
-				<Link className="nav-link text-dark" to="/">Home</Link>
-			</li>
-			<li className="nav-item  ml-3"> 			
-				<Link className="nav-link text-dark" to="/category/Jeans">Jeans</Link>
-			</li>
-			<li className="nav-item  ml-3"> 			
-				<Link className="nav-link text-dark" to="/category/Blazers">Blazers</Link>
-			</li>
-			<li className="nav-item  ml-3"> 			
-				<Link className="nav-link text-dark" to="/category/Remeras">Remeras</Link>
-			</li>
-			<CartWidget/>
-		</ul>
-</nav>
+
+		<Navbar bg="dark" variant="dark" expand="lg">
+		<Container>
+		  <NavLink to={"/"} className="nav-link text-light">Home</NavLink>
+		  <Navbar.Toggle aria-controls="basic-navbar-nav"/>
+		  <Navbar.Collapse id="basic-navbar-nav" >
+			<Nav className="me-auto">
+			  <NavLink to={"/category/Jeans"} className="nav-link text-light">Jeans</NavLink>
+			  <NavLink to={"/category/Remeras"} className="nav-link text-light">Remeras</NavLink>
+			  <NavLink to={"/category/Blazers"} className="nav-link text-light">Blazers</NavLink>
+			  <CartWidget />
+			</Nav>
+		  </Navbar.Collapse>
+		</Container>
+	  </Navbar>
+
 );
 
 
